@@ -29,7 +29,7 @@ const ReceiptTemplate = ({ transactionData, receiptRef }) => {
   return (
     <div 
       ref={receiptRef}
-      className="receipt-container bg-white box-border content-stretch flex flex-col gap-3 items-center justify-start px-3 py-4 relative w-[190px] min-h-[400px]"
+      className="receipt-container bg-white box-border content-stretch flex flex-col gap-3 items-center justify-start px-5 py-4 relative w-[230px] min-h-[400px]"
     >
       {/* Logo */}
       <div className="h-[45px] overflow-clip relative shrink-0 w-[72px]">
@@ -50,21 +50,21 @@ const ReceiptTemplate = ({ transactionData, receiptRef }) => {
       {/* Main Content */}
       <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start p-0 relative shrink-0">
         {/* Business Info */}
-        <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-[184px]">
+        <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-[220px]">
           <div className="box-border content-stretch flex flex-col gap-1 items-center justify-start leading-[0] not-italic p-0 relative shrink-0 text-black text-[8px] text-center">
-            <div className="font-mail-sans font-semibold relative shrink-0 w-[184px]">
+            <div className="font-mail-sans font-semibold relative shrink-0 w-[220px]">
               <p className="block leading-[normal]">ROLLOW STORE COMPANY</p>
             </div>
-            <div className="font-mail-sans relative shrink-0 w-[184px]">
+            <div className="font-mail-sans relative shrink-0 w-[220px]">
               <p className="block leading-[normal]">No 11, Odeku street, bonny, Victoria Island</p>
             </div>
           </div>
         </div>
 
         {/* Approved Section */}
-        <div className="box-border content-stretch flex flex-row gap-2.5 items-center justify-start px-0 py-1 relative shrink-0 w-[184px]">
+        <div className="box-border content-stretch flex flex-row gap-2.5 items-center justify-start px-0 py-1 relative shrink-0 w-[220px]">
           <div className="absolute border-grey-2 border-[1px_0px] border-dashed inset-0 pointer-events-none" />
-          <div className="box-border content-stretch flex flex-row gap-2.5 items-start justify-center p-0 relative shrink-0 w-[184px]">
+          <div className="box-border content-stretch flex flex-row gap-2.5 items-start justify-center p-0 relative shrink-0 w-[220px]">
             <div className="font-mail-sans font-semibold leading-[0] not-italic relative shrink-0 text-black text-[10px] text-left text-nowrap">
               <p className="block leading-[normal] whitespace-pre">APPROVED</p>
             </div>
@@ -72,7 +72,7 @@ const ReceiptTemplate = ({ transactionData, receiptRef }) => {
         </div>
 
         {/* Transaction Details */}
-        <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start p-0 relative shrink-0 w-[184px]">
+        <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start p-0 relative shrink-0 w-[220px]">
           <DetailRow label="Transaction ID" value={tid} />
           <DetailRow label="Date & Time" value={`${formatDate(dateOfTransaction)}, 05:23 PM`} />
           <DetailRow label="CARD TYPE" value={cardType} />
@@ -84,14 +84,14 @@ const ReceiptTemplate = ({ transactionData, receiptRef }) => {
         </div>
 
         {/* Amount Section */}
-        <div className="box-border content-stretch flex flex-col items-start justify-center px-0 py-1 relative shrink-0 w-[184px]">
+        <div className="box-border content-stretch flex flex-col items-start justify-center px-0 py-1 relative shrink-0 w-[220px]">
           <div className="absolute border-grey-2 border-[1px_0px] border-dashed inset-0 pointer-events-none" />
-          <div className="box-border content-stretch flex flex-row gap-2.5 items-start justify-center p-0 relative shrink-0 w-[184px]">
+          <div className="box-border content-stretch flex flex-row gap-2.5 items-start justify-center p-0 relative shrink-0 w-[220px]">
             <div className="font-mail-sans font-semibold leading-[0] relative shrink-0 text-black text-[10px] text-left text-nowrap">
               <p className="block leading-[normal] whitespace-pre">AMOUNT: {formatAmount(amount)}</p>
             </div>
           </div>
-          <div className="box-border content-stretch flex flex-row gap-2.5 items-start justify-center p-0 relative shrink-0 w-[184px]">
+          <div className="box-border content-stretch flex flex-row gap-2.5 items-start justify-center p-0 relative shrink-0 w-[220px]">
             <div className="font-mail-sans font-semibold leading-[0] not-italic relative shrink-0 text-black text-[10px] text-left text-nowrap">
               <p className="block leading-[normal] whitespace-pre">PURCHASE</p>
             </div>
@@ -99,15 +99,15 @@ const ReceiptTemplate = ({ transactionData, receiptRef }) => {
         </div>
 
         {/* Response Details */}
-        <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start p-0 relative shrink-0 w-[184px]">
+        <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start p-0 relative shrink-0 w-[220px]">
           <DetailRow label="RESPONSE CODE" value={responseCode} />
           <DetailRow label="MESSAGE" value={responseMessage} />
         </div>
 
         {/* Footer */}
-        <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start pb-0 pt-2 px-0 relative shrink-0 w-[184px]">
+        <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start pb-0 pt-2 px-0 relative shrink-0 w-[220px]">
           <div className="absolute border-grey-2 border-[1px_0px_0px] border-dashed bottom-0 left-0 pointer-events-none right-0 top-[-1px]" />
-          <div className="box-border content-stretch flex flex-row gap-6 items-start justify-center p-0 relative shrink-0 w-[184px]">
+          <div className="box-border content-stretch flex flex-row gap-6 items-start justify-center p-0 relative shrink-0 w-[220px]">
             <div className="font-mail-sans leading-[0] not-italic relative shrink-0 text-black text-[8px] text-left text-nowrap">
               <p className="block leading-[normal] whitespace-pre">POWERED BY HYDROGEN</p>
             </div>
@@ -120,7 +120,7 @@ const ReceiptTemplate = ({ transactionData, receiptRef }) => {
 
 const DetailRow = ({ label, value }) => (
   <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start p-0 relative shrink-0">
-    <div className="box-border content-stretch flex flex-row font-mail-sans gap-6 items-start justify-start leading-[0] not-italic p-0 relative shrink-0 text-black text-[8px] w-[184px]">
+    <div className="box-border content-stretch flex flex-row font-mail-sans gap-6 items-start justify-start leading-[0] not-italic p-0 relative shrink-0 text-black text-[8px] w-[220px]">
       <div className="relative shrink-0 text-left text-nowrap uppercase">
         <p className="block leading-[normal] whitespace-pre">{label}</p>
       </div>

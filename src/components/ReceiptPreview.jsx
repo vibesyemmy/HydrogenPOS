@@ -271,11 +271,11 @@ const ReceiptPreview = ({ transactions }) => {
 
       {/* Hidden Receipt Templates for PDF Generation - All receipts rendered with proper dimensions */}
       <div 
-        className="absolute left-[-9999px] top-0 w-[190px]"
+        className="absolute left-[-9999px] top-0 w-[230px]"
         style={{ visibility: 'hidden', position: 'absolute' }}
       >
         {transactions.map((transaction, index) => (
-          <div key={index} className="w-[190px] min-h-[400px]">
+          <div key={index} className="w-[230px] min-h-[400px]">
             <ReceiptTemplate
               transactionData={transaction}
               receiptRef={(ref) => setReceiptRef(index, ref)}

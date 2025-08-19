@@ -26,7 +26,7 @@ export const generateReceiptPDF = async (receiptElement, filename) => {
       allowTaint: true,
       backgroundColor: '#ffffff',
       logging: false,
-      width: 190,
+      width: 230,
       height: 400,
       scrollX: 0,
       scrollY: 0
@@ -127,7 +127,7 @@ const generateReceiptPDFBlob = async (receiptElement, filename) => {
       allowTaint: true,
       backgroundColor: '#ffffff',
       logging: false,
-      width: 190,
+      width: 230,
       height: 400,
       scrollX: 0,
       scrollY: 0
