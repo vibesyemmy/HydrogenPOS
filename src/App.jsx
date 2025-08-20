@@ -4,12 +4,13 @@ import ReceiptPreview from './components/ReceiptPreview';
 
 const App = () => {
   const [transactions, setTransactions] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState('hydrogen');
 
   const handleDataProcessed = (data) => {
     setTransactions(data);
-    setError('');
+    setError(null);
     setShowPreview(true);
   };
 
@@ -20,7 +21,15 @@ const App = () => {
 
   const handleReset = () => {
     setTransactions([]);
-    setError('');
+    setError(null);
+    setShowPreview(false);
+  };
+
+  const handleTemplateChange = (templateKey) => {
+    setSelectedTemplate(templateKey);
+    // Reset when template changes
+    setTransactions([]);
+    setError(null);
     setShowPreview(false);
   };
 
@@ -31,16 +40,16 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-3">
-              <img 
-                src="/logo.svg" 
-                alt="Hydrogen Logo" 
+              <img
+                src="/logo.svg"
+                alt="Hydrogen Logo"
                 className="w-8 h-8"
               />
               <h1 className="text-xl font-bold text-gray-900">
                 Hydrogen POS Receipt Generator
               </h1>
             </div>
-            
+
             {showPreview && (
               <button
                 onClick={handleReset}
@@ -64,9 +73,7 @@ const App = () => {
                 </svg>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-red-800">
-                  Error
-                </h3>
+                <h3 className="text-sm font-medium text-red-800">Error</h3>
                 <div className="mt-2 text-sm text-red-700">
                   <p>{error}</p>
                 </div>
@@ -82,7 +89,7 @@ const App = () => {
                 Generate POS Receipts
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Upload your CSV file containing transaction data to generate professional POS receipts. 
+                Select a receipt template and upload your CSV file containing transaction data to generate professional POS receipts.
                 Each transaction will be converted into a downloadable PDF receipt.
               </p>
             </div>
@@ -90,6 +97,8 @@ const App = () => {
             <CSVUploader
               onDataProcessed={handleDataProcessed}
               onError={handleError}
+              selectedTemplate={selectedTemplate}
+              onTemplateChange={handleTemplateChange}
             />
 
             <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -101,6 +110,15 @@ const App = () => {
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <span className="text-blue-600 font-bold">1</span>
                   </div>
+                  <h4 className="font-medium text-gray-900 mb-2">Select Template</h4>
+                  <p className="text-sm text-gray-600">
+                    Choose between Hydrogen or Medusa receipt templates
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-blue-600 font-bold">2</span>
+                  </div>
                   <h4 className="font-medium text-gray-900 mb-2">Upload CSV</h4>
                   <p className="text-sm text-gray-600">
                     Drag and drop your CSV file or click to browse
@@ -108,27 +126,21 @@ const App = () => {
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-blue-600 font-bold">2</span>
-                  </div>
-                  <h4 className="font-medium text-gray-900 mb-2">Preview Receipts</h4>
-                  <p className="text-sm text-gray-600">
-                    Review all generated receipts in a paginated table
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <span className="text-blue-600 font-bold">3</span>
                   </div>
-                  <h4 className="font-medium text-gray-900 mb-2">Download</h4>
+                  <h4 className="font-medium text-gray-900 mb-2">Preview & Download</h4>
                   <p className="text-sm text-gray-600">
-                    Download individual PDFs or all receipts as a ZIP file
+                    Review all generated receipts in a paginated table and download
                   </p>
                 </div>
               </div>
             </div>
           </div>
         ) : (
-          <ReceiptPreview transactions={transactions} />
+          <ReceiptPreview
+            transactions={transactions}
+            selectedTemplate={selectedTemplate}
+          />
         )}
       </main>
 

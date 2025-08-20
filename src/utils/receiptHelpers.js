@@ -27,7 +27,6 @@ export const generateReceiptPDF = async (receiptElement, filename) => {
       backgroundColor: '#ffffff',
       logging: false,
       width: 230,
-      height: 400,
       scrollX: 0,
       scrollY: 0
     });
@@ -128,7 +127,6 @@ const generateReceiptPDFBlob = async (receiptElement, filename) => {
       backgroundColor: '#ffffff',
       logging: false,
       width: 230,
-      height: 400,
       scrollX: 0,
       scrollY: 0
     });

@@ -1,0 +1,6 @@
+Customer name,Address,Date of Transaction,RRN,Amount (in kobo),Tid,MASKEDPAN,Card Type,Payment Type,Issuer Bank,STAN,Response Code,Message,Merchant
+John Doe,123 Main Street Lagos,12/7/24,100000000000,10000,2044ZSRO,468219******5436,Visa,Card,Zenith Bank,0123456789,00,Transaction successful,ROLLOW STORE COMPANY
+Jane Smith,456 Victoria Island,7/10/24,100000000001,15000,2044ZTIO,516227******7834,Mastercard,Card,UBA,0123456790,00,Transaction successful,ROLLOW STORE COMPANY
+Mike Johnson,789 Lekki Phase 1,7/10/24,100000000002,35000,20440YIB,539983******1890,Mastercard,Card,GT Bank,0123456791,00,Transaction successful,ROLLOW STORE COMPANY
+Sarah Wilson,321 Ikoyi,7/10/24,1.72008E+11,9800,2044ZRXX,539983******6255,Mastercard,Card,GT Bank,0123456792,00,Transaction successful,ROLLOW STORE COMPANY
+David Brown,654 Surulere,12/7/24,1.72017E+11,3500,2044ZSWC,519911******7257,Mastercard,Card,Access Bank,0123456793,00,Transaction successful,ROLLOW STORE COMPANY

@@ -1,24 +1,21 @@
 import React, { useCallback, useState } from 'react';
 import { parseCSV, validateCSVData } from '../utils/csvHelpers';
+import { getTemplateOptions, getTemplateConfig } from '../utils/templateConfig';
 
-const CSVUploader = ({ onDataProcessed, onError }) => {
+const CSVUploader = ({ onDataProcessed, onError, selectedTemplate, onTemplateChange }) => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleFileProcess = useCallback(async (file) => {
+  const templateOptions = getTemplateOptions();
+  const currentTemplate = getTemplateConfig(selectedTemplate);
+
+  const handleFile = useCallback(async (file) => {
     if (!file) return;
-    
-    const allowedTypes = ['text/csv', 'application/vnd.ms-excel'];
-    if (!allowedTypes.includes(file.type)) {
-      onError('Please upload a valid CSV file');
-      return;
-    }
 
     setIsProcessing(true);
-    
     try {
       const data = await parseCSV(file);
-      const validation = validateCSVData(data);
+      const validation = validateCSVData(data, selectedTemplate);
       
       if (!validation.isValid) {
         onError(validation.error);
@@ -31,7 +28,19 @@ const CSVUploader = ({ onDataProcessed, onError }) => {
     } finally {
       setIsProcessing(false);
     }
-  }, [onDataProcessed, onError]);
+  }, [onDataProcessed, onError, selectedTemplate]);
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    
+    const file = e.dataTransfer.files[0];
+    if (file && file.type === 'text/csv') {
+      handleFile(file);
+    } else {
+      onError('Please upload a valid CSV file.');
+    }
+  }, [handleFile, onError]);
 
   const handleDragOver = useCallback((e) => {
     e.preventDefault();
@@ -43,89 +52,105 @@ const CSVUploader = ({ onDataProcessed, onError }) => {
     setIsDragOver(false);
   }, []);
 
-  const handleDrop = useCallback((e) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      handleFileProcess(files[0]);
-    }
-  }, [handleFileProcess]);
-
   const handleFileInput = useCallback((e) => {
     const file = e.target.files[0];
-    handleFileProcess(file);
-  }, [handleFileProcess]);
+    if (file) {
+      handleFile(file);
+    }
+  }, [handleFile]);
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-md mx-auto space-y-6">
+      {/* Template Selection */}
+      <div className="bg-white rounded-lg shadow-sm border p-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Receipt Template</h3>
+        <div className="space-y-3">
+          {templateOptions.map((option) => (
+            <label key={option.value} className="flex items-start space-x-3 cursor-pointer">
+              <input
+                type="radio"
+                name="template"
+                value={option.value}
+                checked={selectedTemplate === option.value}
+                onChange={(e) => onTemplateChange(e.target.value)}
+                className="mt-1 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+              />
+              <div className="flex-1">
+                <div className="text-sm font-medium text-gray-900">{option.label}</div>
+                <div className="text-sm text-gray-500">{option.description}</div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* File Upload */}
       <div
         className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-          isDragOver 
-            ? 'border-blue-500 bg-blue-50' 
+          isDragOver
+            ? 'border-blue-500 bg-blue-50'
             : 'border-gray-300 hover:border-gray-400'
         }`}
+        onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
       >
         <div className="space-y-4">
-          <div className="flex justify-center">
+          <div className="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
             <svg
-              className="w-12 h-12 text-gray-400"
-              stroke="currentColor"
+              className="w-6 h-6 text-gray-400"
               fill="none"
-              viewBox="0 0 48 48"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
               <path
-                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
               />
             </svg>
           </div>
           
-          <div className="space-y-2">
-            <h3 className="text-lg font-medium text-gray-900">
-              Upload CSV File
-            </h3>
-            <p className="text-sm text-gray-500">
+          <div>
+            <p className="text-lg font-medium text-gray-900">
+              {isProcessing ? 'Processing CSV...' : 'Upload CSV File'}
+            </p>
+            <p className="text-sm text-gray-500 mt-1">
               Drag and drop your CSV file here, or click to browse
             </p>
           </div>
 
-          <div className="flex justify-center">
-            <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors">
-              <span>Choose File</span>
-              <input
-                type="file"
-                accept=".csv"
-                onChange={handleFileInput}
-                className="hidden"
-                disabled={isProcessing}
-              />
-            </label>
-          </div>
-
-          {isProcessing && (
-            <div className="flex items-center justify-center space-x-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-              <span className="text-sm text-gray-600">Processing...</span>
-            </div>
-          )}
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleFileInput}
+            className="hidden"
+            id="csv-upload"
+            disabled={isProcessing}
+          />
+          <label
+            htmlFor="csv-upload"
+            className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer transition-colors ${
+              isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            {isProcessing ? 'Processing...' : 'Choose File'}
+          </label>
         </div>
       </div>
 
-      <div className="mt-4 text-xs text-gray-500 text-center">
-        <p className="mb-2">Required CSV columns:</p>
-        <div className="bg-gray-100 rounded p-2 text-left max-w-sm mx-auto">
-          <p className="font-mono text-xs">Date of Transaction</p>
-          <p className="font-mono text-xs">RRN</p>
-          <p className="font-mono text-xs">Amount (in kobo)</p>
-          <p className="font-mono text-xs">Tid</p>
-          <p className="font-mono text-xs">MASKEDPAN</p>
+      {/* Required Fields */}
+      <div className="bg-white rounded-lg shadow-sm border p-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Required CSV Columns for {currentTemplate.name}
+        </h3>
+        <div className="bg-gray-100 rounded p-3 space-y-1">
+          {currentTemplate.requiredFields.map((field, index) => (
+            <p key={index} className="font-mono text-xs text-gray-700">
+              {field}
+            </p>
+          ))}
         </div>
       </div>
     </div>
