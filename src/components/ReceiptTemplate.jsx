@@ -141,7 +141,7 @@ const ReceiptTemplate = ({ transactionData, receiptRef }) => {
 
         {/* Transaction Details */}
         <div className="box-border content-stretch flex flex-col gap-1 items-start justify-start p-0 relative shrink-0 w-[220px]">
-          <DetailRow label="Transaction ID" value={tid} />
+          <DetailRow label="Terminal ID" value={tid} />
           <DetailRow label="Date & Time" value={formatDateWithTime(dateOfTransaction)} />
           {customerName && <DetailRow label="Customer" value={customerName} />}
           <DetailRow label="CARD TYPE" value={finalCardType} />
