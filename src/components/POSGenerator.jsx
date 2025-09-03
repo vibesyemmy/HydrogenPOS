@@ -8,7 +8,7 @@ const POSGenerator = () => {
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState('medusa');
+  const [selectedTemplate, setSelectedTemplate] = useState('hydrogen');
 
   const handleDataProcessed = (data) => {
     setTransactions(data);
