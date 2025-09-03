@@ -54,7 +54,7 @@ const LandingPage = () => {
       {/* Hero Section */}
         <div className="px-6 py-8 max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <div className="flex justify-between items-center mb-16">
+        <div className="flex justify-between items-center mb-[120px]">
           {/* Logo and Title */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center">
