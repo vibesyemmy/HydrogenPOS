@@ -255,7 +255,7 @@ const ReceiptPreview = ({ transactions, selectedTemplate }) => {
           onClick={() => goToPage(i)}
           className={`px-3 py-2 text-sm font-medium border ${
             i === currentPage
-              ? 'bg-blue-50 border-blue-500 text-blue-600'
+              ? 'bg-gray-900 border-gray-900 text-white'
               : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
           }`}
         >
@@ -321,11 +321,11 @@ const ReceiptPreview = ({ transactions, selectedTemplate }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-[1200px]">
       {/* Header and Download All Button */}
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-900">
-          Receipt Preview ({filteredTransactions.length} of {transactions.length} transactions)
+          Receipt Preview ({transactions.length} {transactions.length === 1 ? 'Transaction' : 'Transactions'})
         </h2>
         <button
           onClick={handleDownloadAll}
@@ -371,9 +371,9 @@ const ReceiptPreview = ({ transactions, selectedTemplate }) => {
       )}
 
       {/* Table */}
-      <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+      <div className="bg-white shadow-sm rounded-lg overflow-hidden w-[1200px]">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
+          <table className="w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -443,7 +443,7 @@ const ReceiptPreview = ({ transactions, selectedTemplate }) => {
                       <button
                         onClick={() => handleDownloadSingle(index)}
                         disabled={!receiptsReady}
-                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-3 py-1.5 rounded text-sm transition-colors flex items-center space-x-1"
+                        className="bg-yellow-400 hover:bg-yellow-500 disabled:bg-gray-400 text-black px-3 py-1.5 rounded text-sm transition-colors flex items-center space-x-1"
                         title="Download PDF"
                       >
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
